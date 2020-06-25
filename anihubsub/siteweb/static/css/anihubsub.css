@@ -1,0 +1,18 @@
+body {
+  font-family: 'Fira Sans', sans-serif;
+  background-color: #f6f9fc;
+}
+
+.is-patterned {
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIj48ZGVmcz48cGF0dGVybiBpZD0icGF0dGVybiIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiB2aWV3Qm94PSIwIDAgNDAgNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IGlkPSJwYXR0ZXJuLWJhY2tncm91bmQiIHg9IjAiIHk9IjAiIHdpZHRoPSI0MDAlIiBoZWlnaHQ9IjQwMCUiIGZpbGw9IiM2M2IzZWQiLz4gPGNpcmNsZSBjeD0iMzAiIGN5PSIyMCIgcj0iMy41IiBmaWxsPSIjMmI2Y2IwIiBzdHJva2U9IiMyYjZjYjAiIHN0cm9rZS13aWR0aD0iMCIvPiA8IS0tLS0+IDwhLS0tLT4gICAgPGNpcmNsZSBjeD0iMTAiIGN5PSIyMCIgcj0iMS43NSIgZmlsbD0iIzJhNDM2NSIgc3Ryb2tlPSIjMmE0MzY1IiBzdHJva2Utd2lkdGg9IjAiLz4gPCEtLS0tPiA8IS0tLS0+ICAgIDwvcGF0dGVybj48L2RlZnM+IDxyZWN0IGZpbGw9InVybCgjcGF0dGVybikiIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiIHk9IjAiIHg9IjAiLz48L3N2Zz4="); 
+}
+
+.ahs-sugestoes .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ahs-sugestoes .card-content {
+  flex: auto;
+}

@@ -1,0 +1,204 @@
+{% extends 'base-bulma.html' %}
+
+{% block corpo %}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <h1 class="is-size-4">AniHubSub</h1>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true">AniHubSub</span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+<section class="has-background-link	has-text-white">
+    <div class="container">
+        Melhor site de Legendas Otaku do Brasil
+    </div>
+</section>
+<section class="hero is-patterned">
+    <div id="ahs" class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-white has-text-weight-bold has-text-centered">
+                Sugestões do Editor Otaku
+            </h1>
+            <div class="columns ahs-sugestoes">
+                {% for titulo, thumb, legendas in animes_recomendados %}
+                <div class="column is-3">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by3 is-3">
+                                <img src={{ thumb }} alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">{{ titulo }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href={{ legendas }} class="card-footer-item has-background-link has-text-white">
+                                <span class="icon">
+                                    <i class="fas fa-download"></i>
+                                </span>
+                                Baixar Legendas
+                            </a>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-fullhd">
+            <h1 class="title has-text-centered">
+                Noś Apoiamos a Industria de Animes no Brasil
+            </h1>
+            <h2 class="subtitle has-text-centered">
+                Serviços de Stremers no Brasil que passam animes
+            </h2>
+            <div class="columns is-vcentered" style=>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/amazon_prime_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/crunchroll_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/hidive_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/netflix_.png">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sessão Novas Legendas -->
+<section>
+    <div class="container">
+        <h1 class="title has-text-weight-bold">
+            Novas Legendas
+        </h1>
+        <div class="columns" style=>
+            <div class="column is-9">
+                <div class="box">
+                    <article class="media">                        
+                        <div class="media-left">
+                            <figure class="image is-96x96">
+                                <img src="static/img/thumbs/199481.jpg" alt="Image">
+                            </figure>
+                        </div>                        
+                        <div class="media-content">                        
+                            <div class="content">                                
+                                <p>
+                                    <span class="icon has-text-success">
+                                        <i class="fas fa-lg fa-clipboard-check"></i>
+                                    </span>
+                                    <strong>K-ON!</strong>
+                                </p>
+                            </div>
+                            <ul class="events is-marginless is-paddingless">
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-tv"></i>
+                                    </span>                                    
+                                    Perído de Exibição:
+                                    <strong class="tag is-white">03.04.2009 até 19.06.2009</strong>
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </span>
+                                    Premiered: <span class="tag price-tag is-price-free">Spring 2009</span>
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </span>                                    
+                                    Links Informativos:
+                                    <a class="prefetch" href="/microsoft-office-alternatives">MyAnimeList</a>,
+                                    <a class="prefetch" href="/microsoft-office-365-alternatives">AniDB</a>,
+                                    <a class="prefetch" href="/google-drive-docs-alternatives">Trakt.tv</a>,
+                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">IMDB</a>,
+                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TMDB</a>,
+                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TVMaze</a>
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-check-double"></i>
+                                    </span>
+                                    Revisado
+                                </li>
+                            </ul>                            
+                        </div>
+                        <div class="media-right">
+                            <a href={{ legendas }} class="card-footer-item has-background-link has-text-white">
+                                <span class="icon">
+                                    <i class="fas fa-download"></i>
+                                </span>
+                                Baixar Legendas
+                            </a>
+                        </div>
+                    </article>
+                </div>               
+            </div>
+            <div class="column is-3">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title">
+                            “There are two hard things in computer science: cache invalidation, naming things, and
+                            off-by-one errors.”
+                        </p>
+                        <p class="subtitle">
+                            Jeff Atwood
+                        </p>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                            <span>
+                                View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+                            </span>
+                        </p>
+                        <p class="card-footer-item">
+                            <span>
+                                Share on <a href="#">Facebook</a>
+                            </span>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+        </p>
+    </div>
+</footer>
+{% endblock corpo %}
