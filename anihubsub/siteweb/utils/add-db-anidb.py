@@ -9,9 +9,9 @@ from datetime import datetime
 from PIL import Image
 
 lista_de_codigos = {
-    # '14111':'https://static.tvmaze.com/uploads/images/original_untouched/256/640071.jpg',
-    # '6257': 'https://static.tvmaze.com/uploads/images/original_untouched/22/55807.jpg',
-    # '7525': 'https://static.tvmaze.com/uploads/images/original_untouched/22/56879.jpg',
+    '14111':'https://static.tvmaze.com/uploads/images/original_untouched/256/640071.jpg',
+    '6257': 'https://static.tvmaze.com/uploads/images/original_untouched/22/55807.jpg',
+    '7525': 'https://static.tvmaze.com/uploads/images/original_untouched/22/56879.jpg',
     '13756': 'https://static.tvmaze.com/uploads/images/original_untouched/165/414677.jpg'
 }
 
@@ -41,6 +41,7 @@ for codigo in lista_de_codigos:
 
     #Pega Figura
     doc_anime['url_thumb'] = 'https://cdn-eu.anidb.net/images/main/' + raiz.find('.//picture').text
+    doc_anime['cod_thumb'] = raiz.find('.//picture').text
     urllib.request.urlretrieve(doc_anime['url_thumb'], 'anihubsub/siteweb/static/img/anidb/' + raiz.find('.//picture').text)
 
     image = Image.open('anihubsub/siteweb/static/img/anidb/' + raiz.find('.//picture').text)
@@ -49,7 +50,7 @@ for codigo in lista_de_codigos:
 
     links_externos = {}
     links_mal = []
-    links_ann = []
+    links_ann = []   
 
     for t in raiz.findall('resources'):
         for t2 in t.findall('resource'):          
@@ -62,7 +63,7 @@ for codigo in lista_de_codigos:
 
     links_externos['link_mal'] = links_mal
     links_externos['link_ann'] = links_ann
-    links_externos['link_anidb'] = 'https://anidb.net/anime/' + codigo
+    links_externos['link_anidb'] = ['https://anidb.net/anime/' + codigo]
     doc_anime['link_externos'] = links_externos
 
     identificador = str(uuid.uuid5(uuid.NAMESPACE_DNS, doc_anime['titulo']))
@@ -82,3 +83,6 @@ for codigo in lista_de_codigos:
     myfile.write(mydata)
 
 print("Fim")
+
+# d = '2010-03-01'
+# if datetime.strptime(d,'%Y-%m-%d').month >= 10 and datetime.strptime(d,'%Y-%m-%d').month <=12

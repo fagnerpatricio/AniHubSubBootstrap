@@ -101,29 +101,30 @@
         </h1>
         <div class="columns" style=>
             <div class="column is-9">
+                {% for titulo, thumb, legenda, inicio, fim, links in ultimos_lancamentos  %}
                 <div class="box">
-                    <article class="media">                        
+                    <article class="media">
                         <div class="media-left">
                             <figure class="image is-96x96">
-                                <img src="static/img/thumbs/199481.jpg" alt="Image">
+                                <img src="static/img/thumbs/{{ thumb }}" alt="Image">
                             </figure>
-                        </div>                        
-                        <div class="media-content">                        
-                            <div class="content">                                
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
                                 <p>
                                     <span class="icon has-text-success">
                                         <i class="fas fa-lg fa-clipboard-check"></i>
                                     </span>
-                                    <strong>K-ON!</strong>
+                                    <strong>{{ titulo }}</strong>
                                 </p>
                             </div>
                             <ul class="events is-marginless is-paddingless">
                                 <li>
                                     <span class="icon">
                                         <i class="fas fa-tv"></i>
-                                    </span>                                    
+                                    </span>
                                     Perído de Exibição:
-                                    <strong class="tag is-white">03.04.2009 até 19.06.2009</strong>
+                                    <strong class="tag is-white">{{ inicio }} até {{ fim }}</strong>
                                 </li>
                                 <li>
                                     <span class="icon">
@@ -134,14 +135,31 @@
                                 <li>
                                     <span class="icon">
                                         <i class="fas fa-external-link-alt"></i>
-                                    </span>                                    
+                                    </span>
                                     Links Informativos:
-                                    <a class="prefetch" href="/microsoft-office-alternatives">MyAnimeList</a>,
+                                    {% for key, value in links.items  %}
+                                        {% if key == 'link_mal' %}
+                                            {% for link in value %}
+                                                <a class="prefetch" href={{ link }}>MyAnimeList</a>,
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if key == 'link_ann' %}
+                                            {% for link in value %}
+                                                <a class="prefetch" href={{ link }}>ANN</a>,
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if key == 'link_anidb' %}
+                                            {% for link in value %}
+                                                <a class="prefetch" href={{ link }}>AniDB</a>
+                                            {% endfor %}
+                                        {% endif %}                                        
+                                    {% endfor %}
+                                    {% comment %} <a class="prefetch" href="/microsoft-office-alternatives">MyAnimeList</a>,
                                     <a class="prefetch" href="/microsoft-office-365-alternatives">AniDB</a>,
                                     <a class="prefetch" href="/google-drive-docs-alternatives">Trakt.tv</a>,
                                     <a class="prefetch" href="/microsoft-expression-web-alternatives">IMDB</a>,
                                     <a class="prefetch" href="/microsoft-expression-web-alternatives">TMDB</a>,
-                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TVMaze</a>
+                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TVMaze</a> {% endcomment %}
                                 </li>
                                 <li>
                                     <span class="icon">
@@ -149,10 +167,10 @@
                                     </span>
                                     Revisado
                                 </li>
-                            </ul>                            
+                            </ul>
                         </div>
                         <div class="media-right">
-                            <a href={{ legendas }} class="card-footer-item has-background-link has-text-white">
+                            <a href={{ legenda }} class="card-footer-item">
                                 <span class="icon">
                                     <i class="fas fa-download"></i>
                                 </span>
@@ -160,7 +178,8 @@
                             </a>
                         </div>
                     </article>
-                </div>               
+                </div>
+                {% endfor %}
             </div>
             <div class="column is-3">
                 <div class="card">

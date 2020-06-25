@@ -20,9 +20,16 @@ def indexBulma(request):
     
     dados2 = []
     ultimos_animes_adicionados = View(db['_design/ahs'], 'ultimos_adicionados')
-    for anime in ultimos_animes_adicionados(include_docs=True, descending=True, limit=1)['rows']:
-        dados2.append(anime['value']['titulo'])
+    for anime in ultimos_animes_adicionados(include_docs=True, descending=True, limit=10)['rows']:
+        dados2.append((
+            anime['value']['titulo'],
+            anime['value']['thumb'],
+            anime['value']['legenda'],
+            anime['value']['inicio'],
+            anime['value']['fim'],
+            anime['value']['links']
+        ))
 
-    return render(request, 'indexBulma.html', {'animes_recomendados': dados})
+    return render(request, 'indexBulma.html', {'animes_recomendados': dados, 'ultimos_lancamentos': dados2})
 
 # http://192.168.2.211:5984/animes/_design/ulitmos/_view/ultimos_animes?descending=true&limit=2&include_docs=true
