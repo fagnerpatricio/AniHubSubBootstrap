@@ -58,6 +58,24 @@
         </div>
     </div>
 </section>
+<section>
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <h1 class="title is-4 has-text-centered">Todas as Legendas</h1>
+                <div class="columns is-vcentered pl-5">
+                    {% for letra in alfabeto  %}
+                    <div class="column">
+                        <a class="prefetch has-text-weight-bold" href='#'>{{ letra }}</a>
+                        {% comment %} <span class='has-text-weight-bold'>{{ letra }}</span> {% endcomment %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>
 <section class="hero">
     <div class="hero-body">
         <div class="container is-fullhd">
@@ -92,7 +110,6 @@
         </div>
     </div>
 </section>
-
 <!-- Sessão Novas Legendas -->
 <section>
     <div class="container">
@@ -101,7 +118,7 @@
         </h1>
         <div class="columns" style=>
             <div class="column is-9">
-                {% for titulo, thumb, legenda, inicio, fim, links in ultimos_lancamentos  %}
+                {% for titulo, thumb, legenda, inicio, fim, premier, links, fansub in ultimos_lancamentos  %}
                 <div class="box">
                     <article class="media">
                         <div class="media-left">
@@ -130,7 +147,7 @@
                                     <span class="icon">
                                         <i class="fas fa-rocket"></i>
                                     </span>
-                                    Premiered: <span class="tag price-tag is-price-free">Spring 2009</span>
+                                    Premiered: <span class="tag price-tag is-price-free">{{ premier }}</span>
                                 </li>
                                 <li>
                                     <span class="icon">
@@ -138,34 +155,28 @@
                                     </span>
                                     Links Informativos:
                                     {% for key, value in links.items  %}
-                                        {% if key == 'link_mal' %}
-                                            {% for link in value %}
-                                                <a class="prefetch" href={{ link }}>MyAnimeList</a>,
-                                            {% endfor %}
-                                        {% endif %}
-                                        {% if key == 'link_ann' %}
-                                            {% for link in value %}
-                                                <a class="prefetch" href={{ link }}>ANN</a>,
-                                            {% endfor %}
-                                        {% endif %}
-                                        {% if key == 'link_anidb' %}
-                                            {% for link in value %}
-                                                <a class="prefetch" href={{ link }}>AniDB</a>
-                                            {% endfor %}
-                                        {% endif %}                                        
+                                    {% if key == 'link_mal' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>MyAnimeList</a>,
                                     {% endfor %}
-                                    {% comment %} <a class="prefetch" href="/microsoft-office-alternatives">MyAnimeList</a>,
-                                    <a class="prefetch" href="/microsoft-office-365-alternatives">AniDB</a>,
-                                    <a class="prefetch" href="/google-drive-docs-alternatives">Trakt.tv</a>,
-                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">IMDB</a>,
-                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TMDB</a>,
-                                    <a class="prefetch" href="/microsoft-expression-web-alternatives">TVMaze</a> {% endcomment %}
+                                    {% endif %}
+                                    {% if key == 'link_ann' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>ANN</a>,
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if key == 'link_anidb' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>AniDB</a>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
                                 </li>
                                 <li>
                                     <span class="icon">
                                         <i class="fas fa-check-double"></i>
                                     </span>
-                                    Revisado
+                                    Disponibilizado e Revisado por <span class="tag is-success">{{ fansub }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -209,15 +220,6 @@
         </div>
     </div>
 </section>
-
 <!-- Footer -->
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-        </p>
-    </div>
-</footer>
+{% include 'footer.html' %}
 {% endblock corpo %}

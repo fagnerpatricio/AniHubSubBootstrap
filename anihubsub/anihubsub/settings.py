@@ -120,6 +120,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/home/fagner/ProjetosVSCode/AniHubSubBootstrap/anihubsub/siteweb/static',
+    os.path.join(BASE_DIR, "siteweb/static/"),
+    # '/home/fagner/ProjetosVSCode/AniHubSubBootstrap/anihubsub/siteweb/static',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'siteweb/static/legendas/')
+
+print("base dir path", BASE_DIR)
+

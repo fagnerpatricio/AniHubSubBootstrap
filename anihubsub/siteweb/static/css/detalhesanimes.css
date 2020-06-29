@@ -1,0 +1,8 @@
+.detalhes-img {    
+    background: url('https://artworks.thetvdb.com/banners/fanart/original/275670-2.jpg');
+    background-size:cover;
+    /* padding: 15rem 1.5rem !important; */
+    /* background-size: auto;*/
+    background-position: 50% 20%;
+    /* height: 500px; */
+}

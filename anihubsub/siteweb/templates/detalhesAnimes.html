@@ -1,0 +1,115 @@
+{% extends 'base-bulma.html' %}
+{% load static %}
+
+{% block corpo %}
+<section class="hero is-medium">
+  <div class="hero-body detalhes-img">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 has-text-white has-text-weight-bold">
+        Nisekoi
+      </h1>
+    </div>
+  </div>
+  <div class="hero-foot pb-3">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li>
+            <a>Overview</a>
+          </li>
+          <li>
+            <a>Modifiers</a>
+          </li>
+          <li>
+            <a>Grid</a>
+          </li>
+          <li>
+            <a>Elements</a>
+          </li>
+          <li>
+            <a>Components</a>
+          </li>
+          <li>
+            <a>Layout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+{% comment %} {% endcomment %}
+<section class='has-background-white'>
+  <div class="container has-background-white">
+    <div class="columns">
+      <div class="column is-2">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-2by3">
+              <img src="https://artworks.thetvdb.com/banners/posters/275670-1.jpg">
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="column is-10">
+        <div class="content">
+          <p>Sinopse</p>
+          <p class='has-text-justified'>
+            Ichijou Raku é um garoto aparentemente normal, que mantém uma promessa desde sua infância: guardar um
+            colar-cadeado, dado por uma garota. Raku no entanto, é filho do chefe da Yakuza, e por isso nunca teve uma
+            vida lá muito normal. Um dia Chitoge, uma aluna transferida aparece pulando o muro e caindo por cima de
+            Raku,
+            o que causa estranhamento entre os dois devido à perda do colar de Raku no choque entre eles. Após dias de
+            busca e desavenças, ambos descobrem que o futuro lhes pregou uma peça: apesar de se detestarem, precisarão
+            se
+            fingir de namorados para evitar a guerra entre a Yakuza, da família de Raku, e a máfia, da família de
+            Chitoge.
+            Um romance fadado ao desastre e guerra entre facções inimigas.
+          </p>
+        </div>
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th><abbr title="Position">Episódio</abbr></th>
+              <th>Título</th>
+              <th><abbr title="Played">Duração</abbr></th>
+              <th><abbr title="Won">Data de Exibição</abbr></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th><abbr title="Position">Episódio</abbr></th>
+              <th>Título</th>
+              <th><abbr title="Played">Duração</abbr></th>
+              <th><abbr title="Won">Data de Exibição</abbr></th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr>
+              <th>1</th>
+              <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester
+                  City</a> <strong>(C)</strong>
+              </td>
+              <td>38</td>
+              <td>23</td>              
+            </tr>
+            <tr>
+              <th>2</th>
+              <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+              <td>38</td>
+              <td>20</td>              
+            </tr>
+            <tr>
+              <th>3</th>
+              <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C."
+                  title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+              <td>38</td>
+              <td>19</td>  
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% include 'footer.html' %}
+{% endblock corpo %}

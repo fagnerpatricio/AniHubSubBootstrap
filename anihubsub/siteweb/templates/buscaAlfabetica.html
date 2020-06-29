@@ -1,0 +1,83 @@
+{% extends 'base-bulma.html' %}
+{% load static %}
+
+{% block corpo %}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <h1 class="is-size-4">AniHubSub</h1>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true">AniHubSub</span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+<section class="has-background-link	has-text-white">
+    <div class="container">
+        Melhor site de Legendas Otaku do Brasil
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="box">
+            <h1 class="title is-4 has-text-centered">Todas as Legendas</h1>
+            <div class="columns is-vcentered pl-5">
+                {% for letra in alfabeto  %}
+                <div class="column">
+                    <a class="prefetch has-text-weight-bold" href='{{ letra }}'>{{ letra }}</a>
+                    {% comment %} <span class='has-text-weight-bold'>{{ letra }}</span> {% endcomment %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="columns multiline ahs-sugestoes">
+            {% for titulo, banner, legenda, inicio, fim, premier, links, fansub in resultado %}
+            <div class="column is-2">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by3">
+                            <img src={{ banner }} alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6">{{ titulo }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="{% static "legendas/" %}{{ legenda }}" class="card-footer-item has-background-link has-text-white">
+                            <span class="icon">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            Baixar Legendas
+                        </a>
+                    </footer>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+        </p>
+    </div>
+</footer>
+
+{% endblock corpo %}
