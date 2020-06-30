@@ -7,10 +7,11 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('bulma', views.indexBulma, name='indexBulma'),
+    # path('bulma', views.indexBulma, name='indexBulma'),
     path('animes/<letra>', views.adminAnimes, name='adminAnimes'),
     path('buscaalfabetica/<letra>', views.buscaAlfabetica, name='buscaAlfabetica'),
-    path('detalhesanimes', views.detalhesAnimes, name='detalhesAnimes'),
+    path('buscaanimes', views.buscaAnimes, name='buscaAnimes'),
+    path('detalhesanimes/<id>', views.detalhesAnimes, name='detalhesAnimes'),
     path('upload', views.upload, name='upload'),
 ]
 

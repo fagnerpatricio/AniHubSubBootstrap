@@ -2,15 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from cloudant.client import Cloudant
 from cloudant.view import View
+from cloudant.query import Query
 from django.core.files.storage import FileSystemStorage
+from django import forms
 
 import couchdb
 
+alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-def index(request):
+def indexBootStrap5(request):
     return render(request, 'index.html')
 
-def indexBulma(request):
+def index(request):
     alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     # Create client using auto_renew to automatically renew expired cookie auth
     client = Cloudant('admin', 'password', url='http://192.168.2.211:5984', connect=True)
@@ -27,7 +30,7 @@ def indexBulma(request):
     for anime in ultimos_animes_adicionados(include_docs=True, descending=True, limit=10)['rows']:
         dados2.append((
             anime['value']['titulo'],
-            anime['value']['thumb'] + '.jpg',
+            anime['value']['thumb'] + '.png',
             anime['value']['legenda'],
             anime['value']['inicio'],
             anime['value']['fim'],
@@ -36,7 +39,7 @@ def indexBulma(request):
             anime['value']['fansub']
         ))
 
-    return render(request, 'indexBulma.html', {'animes_recomendados': dados, 'ultimos_lancamentos': dados2, 'alfabeto':alfabeto})
+    return render(request, 'index.html', {'animes_recomendados': dados, 'ultimos_lancamentos': dados2, 'alfabeto':alfabeto})
 
 def adminAnimes(request,letra):
     alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -84,28 +87,50 @@ def buscaAlfabetica(request,letra='A'):
 
     return render(request, 'buscaAlfabetica.html', {'resultado':lista_de_animes, 'alfabeto':alfabeto})
 
-def detalhesAnimes(request):
-    server = couchdb.Server('http://admin:password@192.168.2.211:5984/')
-    db = server['ahs']
+def buscaAnimes(request):
+    if request.method == 'POST':
+        client = Cloudant('admin', 'password', url='http://192.168.2.211:5984', connect=True)
+        db = client['ahs']
+       
+        selector = {"titulo_pesquisa": {"$regex": request.POST.get('texto_para_pesquisa').lower()}}
+        docs = db.get_query_result(selector)
+        
+        lista_de_animes = []
+        for anime in docs:
+            lista_de_animes.append((
+                anime['titulo'],
+                anime['url_banner'],
+                anime['url_legendas'],
+                anime['inicio_de_exibicao'],
+                anime['final_de_exibicao'],
+                anime['premier'],
+                anime['link_externos'],
+                anime['fansub']
+            ))    
+        
+        return render(request, 'buscaAlfabetica.html', {'resultado':lista_de_animes, 'alfabeto':alfabeto})
 
-    anime = db.get("e4657cf9-1832-5426-a959-541b216b3e82")
+def detalhesAnimes(request,id=None):
+    client = Cloudant('admin', 'password', url='http://192.168.2.211:5984', connect=True)
+    db = client['ahs']
 
-    lista_de_animes = [] 
+    busca_animes =  View(db['_design/ahs'], 'anime-detalhes')
+    
+    lista_de_animes = []
+    for anime in busca_animes(key=str(id))['rows']:
+        lista_de_animes.append(anime['value']['titulo'])
+        lista_de_animes.append(anime['value']['banner'])
+        lista_de_animes.append(anime['value']['legenda'])
+        lista_de_animes.append(anime['value']['inicio'])
+        lista_de_animes.append(anime['value']['fim'])
+        lista_de_animes.append(anime['value']['premier'])
+        lista_de_animes.append(anime['value']['links'])
+        lista_de_animes.append(anime['value']['fansub'])
+        lista_de_animes.append(anime['value']['episodios'])
+        lista_de_animes.append(anime['value']['sinopse'])
+        lista_de_animes.append(anime['value']['planoDeFundo'])
 
-    lista_de_animes.append((
-            anime['titulo'],
-            anime['banner'],
-            anime['legenda'],
-            anime['inicio'],
-            anime['fim'],
-            anime['premier'],
-            anime['links'],
-            anime['fansub'],
-            anime['sinopse'],
-            anime['episodios']
-        ))
-
-    return render(request, 'detalhesAnimes.html')
+    return render(request, 'detalhesAnimes.html', {'resultado':lista_de_animes, 'alfabeto':alfabeto})
 
 
 def upload(request):

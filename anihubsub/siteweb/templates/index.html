@@ -1,191 +1,196 @@
 {% extends 'base.html' %}
 
 {% block corpo %}
-
-<!-- Sessão Navbar -->
-<nav class="navbar navbar-light bg-light">
-    <div class="container">
-        <span class="navbar-brand mb-0 h1">AniHubSub</span>
-    </div>
-</nav>
-<section class="bg-primary text-white">
+{% include 'z-cabecalho.html' %}
+<section class="has-background-link	has-text-white">
     <div class="container">
         Melhor site de Legendas Otaku do Brasil
     </div>
 </section>
-<!-- -->
-
-<!-- Sessão Sugestões -->
-<section id='ani-hub-sugestoes' class="is-patterned pb-5">
-    <h1 class="h1 text-center text-white font-weight-bold py-5">Sugestões do Editor</h1>
-    <div class="container">
-        <div class="row">
-            <div class="col col-md-3">
-                <div class="card h-100">
-                    <img src="https://static.tvmaze.com/uploads/images/original_untouched/22/56879.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card h-100">
-                    <img src="https://static.tvmaze.com/uploads/images/original_untouched/22/55807.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                            content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+<section class="hero is-patterned">
+    <div id="ahs" class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-white has-text-weight-bold has-text-centered">
+                Sugestões do Editor Otaku
+            </h1>
+            <div class="columns ahs-sugestoes">
+                {% for titulo, thumb, legendas in animes_recomendados %}
+                <div class="column is-3">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-2by3 is-3">
+                                <img src={{ thumb }} alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">{{ titulo }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href={{ legendas }} class="card-footer-item has-background-link has-text-white">
+                                <span class="icon">
+                                    <i class="fas fa-download"></i>
+                                </span>
+                                Baixar Legendas
+                            </a>
+                        </footer>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card h-100">
-                    <img src="https://static.tvmaze.com/uploads/images/original_untouched/101/254486.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This card has even longer content than the first to show that equal
-                            height action.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card h-100">
-                    <img src="https://static.tvmaze.com/uploads/images/original_untouched/256/640071.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This card has even longer content than the first to show that equal
-                            height action.</p>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This card has even longer content than the first to show that equal
-                            height action.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- Sessão Empresas de Streming -->
-<section class="pb-5">
-    <h1 class="h1 text-center font-weight-bold py-5">Nós Apoiamos a Industria</h1>
-    <div class="container">
-        <div class="row text-center">
-            <div class="col">
-                <img src="static/img/banners/amazon_prime_.png" alt="">
-            </div>
-            <div class="col">
-                <img src="static/img/banners/crunchroll_.jpg" alt="">
-            </div>
-            <div class="col">
-                <img src="static/img/banners/hidive_.png" alt="">
-            </div>
-            <div class="col">
-                <img src="static/img/banners/netflix_.png" alt="">
+                {% endfor %}
             </div>
         </div>
     </div>
 </section>
 
+{% include 'z-busca-alfabetica.html' %}
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-fullhd">
+            <h1 class="title has-text-centered">
+                Noś Apoiamos a Industria de Animes no Brasil
+            </h1>
+            <h2 class="subtitle has-text-centered">
+                Serviços de Stremers no Brasil que passam animes
+            </h2>
+            <div class="columns is-vcentered" style=>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/amazon_prime_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/crunchroll_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/hidive_.png">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <figure class="image">
+                        <img src="static/img/banners/netflix_.png">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Sessão Novas Legendas -->
-<section class="pt-5">
+<section>
     <div class="container">
-        <div class="col-9">
-            <h1 class="h3 font-weight-bold">Novidades</h1>
-        </div>
-        <div class="row">
-            <div class="col-9">
-                <div class="card mb-3 bg-white">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img class="img-fluid"
-                                src="https://static.tvmaze.com/uploads/images/original_untouched/101/254486.jpg"
-                                alt="...">
+        <h1 class="title has-text-weight-bold">
+            Novas Legendas
+        </h1>
+        <div class="columns" style=>
+            <div class="column is-9">
+                {% for titulo, thumb, legenda, inicio, fim, premier, links, fansub in ultimos_lancamentos  %}
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-96x96">
+                                <img src="static/img/thumbs/{{ thumb }}" alt="Image">
+                            </figure>
                         </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to
-                                    additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <span class="icon has-text-success">
+                                        <i class="fas fa-lg fa-clipboard-check"></i>
+                                    </span>
+                                    <a href={% url 'detalhesAnimes' titulo %}><strong>{{ titulo }}</strong></a>
+                                </p>
                             </div>
+                            <ul class="events is-marginless is-paddingless">
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-tv"></i>
+                                    </span>
+                                    Perído de Exibição:
+                                    <strong class="tag is-white">{{ inicio }} até {{ fim }}</strong>
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </span>
+                                    Premiered: <span class="tag price-tag is-price-free">{{ premier }}</span>
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </span>
+                                    Links Informativos:
+                                    {% for key, value in links.items  %}
+                                    {% if key == 'link_mal' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>MyAnimeList</a>,
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if key == 'link_ann' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>ANN</a>,
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% if key == 'link_anidb' %}
+                                    {% for link in value %}
+                                    <a class="prefetch" href={{ link }}>AniDB</a>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li>
+                                    <span class="icon">
+                                        <i class="fas fa-check-double"></i>
+                                    </span>
+                                    Disponibilizado e Revisado por <span class="tag is-success">{{ fansub }}</span>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
+                        <div class="media-right">
+                            <a href={{ legenda }} class="card-footer-item">
+                                <span class="icon">
+                                    <i class="fas fa-download"></i>
+                                </span>
+                                Baixar Legendas
+                            </a>
+                        </div>
+                    </article>
                 </div>
-                <div class="card mb-3 bg-white">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img class="img-fluid"
-                                src="https://static.tvmaze.com/uploads/images/original_untouched/101/254486.jpg"
-                                alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to
-                                    additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3 bg-white">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img class="img-fluid"
-                                src="https://static.tvmaze.com/uploads/images/original_untouched/101/254486.jpg"
-                                alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural
-                                    lead-in to
-                                    additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-            <div class="col-3">
+            <div class="column is-3">
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                    <div class="card-content">
+                        <p class="title">
+                            “There are two hard things in computer science: cache invalidation, naming things, and
+                            off-by-one errors.”
+                        </p>
+                        <p class="subtitle">
+                            Jeff Atwood
+                        </p>
                     </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                            <span>
+                                View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+                            </span>
+                        </p>
+                        <p class="card-footer-item">
+                            <span>
+                                Share on <a href="#">Facebook</a>
+                            </span>
+                        </p>
+                    </footer>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
-
+<!-- Footer -->
+{% include 'z-footer.html' %}
 {% endblock corpo %}

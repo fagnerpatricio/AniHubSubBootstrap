@@ -1,0 +1,16 @@
+<section>
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <h1 class="title is-4 has-text-centered">Todas as Legendas</h1>
+                <div class="columns is-vcentered pl-5">
+                    {% for letra in alfabeto  %}
+                    <div class="column">
+                        <a class="prefetch has-text-weight-bold" href={% url 'buscaAlfabetica' letra %}>{{ letra }}</a>                      
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

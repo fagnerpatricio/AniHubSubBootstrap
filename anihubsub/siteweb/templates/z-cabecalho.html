@@ -1,0 +1,38 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href={% url 'index' %}>
+                <h1 class="is-size-4">AniHubSub</h1>
+            </a>
+
+            <a href={% url 'index' %} role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true">AniHubSub</span>
+            </a>
+        </div>
+        <div class="navbar-start">
+            <form action={% url 'buscaAnimes' %} method="post">
+                {% csrf_token %}
+                <div class="navbar-item field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Procure sua legenda" name="texto_para_pesquisa">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">Procurar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class='has-text-weight-bold' href={% url 'index' %}>
+                        <span class="icon">
+                            <i class="fas fa-home"></i>
+                        </span>
+                        Tela Inicial
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

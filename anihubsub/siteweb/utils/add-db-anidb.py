@@ -7,6 +7,7 @@ import uuid
 import couchdb
 from datetime import datetime
 from PIL import Image
+from operator import itemgetter
 
 
 def define_premier(data_inicial, data_final):
@@ -24,11 +25,17 @@ def define_premier(data_inicial, data_final):
         return "Outono " + str(ano)
 
 lista_de_codigos = [
+    # (
+    #     '14111',
+    #     'https://image.tmdb.org/t/p/original/td5dHTdzEDGmvyWEhlYMPHDTlBz.jpg',
+    #     'https://image.tmdb.org/t/p/original/rYGowgXDECVVCbyIw3LfY8szdDl.jpg',
+    #     'Considerado um gênio devido a ter as notas mais altas do país, Miyuki Shirogane lidera o prestigioso conselho estudantil da Academia Shuchiin como seu presidente, trabalhando ao lado do belo e rico vice-presidente Kaguya Shinomiya. Os dois são frequentemente considerados como o casal perfeito pelos alunos, apesar de não terem qualquer tipo de relacionamento romântico. No entanto, a verdade é que depois de passar tanto tempo juntos, os dois desenvolveram sentimentos um pelo outro; infelizmente, nenhum deles está disposto a confessar, pois isso seria um sinal de fraqueza. Com seu orgulho como estudantes de elite na linha, Miyuki e Kaguya embarcam em uma missão para fazer o que for necessário para obter uma confissão do outro. Através de suas travessuras diárias, a batalha do amor começa!'
+    # )
     (
-        '14111',
-        'https://image.tmdb.org/t/p/original/td5dHTdzEDGmvyWEhlYMPHDTlBz.jpg',
-        'https://image.tmdb.org/t/p/original/rYGowgXDECVVCbyIw3LfY8szdDl.jpg',
-        'Considerado um gênio devido a ter as notas mais altas do país, Miyuki Shirogane lidera o prestigioso conselho estudantil da Academia Shuchiin como seu presidente, trabalhando ao lado do belo e rico vice-presidente Kaguya Shinomiya. Os dois são frequentemente considerados como o casal perfeito pelos alunos, apesar de não terem qualquer tipo de relacionamento romântico. No entanto, a verdade é que depois de passar tanto tempo juntos, os dois desenvolveram sentimentos um pelo outro; infelizmente, nenhum deles está disposto a confessar, pois isso seria um sinal de fraqueza. Com seu orgulho como estudantes de elite na linha, Miyuki e Kaguya embarcam em uma missão para fazer o que for necessário para obter uma confissão do outro. Através de suas travessuras diárias, a batalha do amor começa!'
+        '34',
+        'https://image.tmdb.org/t/p/original/tjbcFqW9zQlmBUB0USpJhpqASOw.jpg',
+        'https://image.tmdb.org/t/p/original/2vIjTPITEoHeetz1jU4UxyHL9tg.jpg',
+        'A história gira em torno da estudante Tohru Honda, que começa a viver sozinha em uma tenda depois de perder sua mãe. Ela acaba morando com os colegas Yuki e Kyo Sohma, trabalhando como dona de casa. Ela logo descobre que a família foi ligada por uma maldição relacionada ao zodíaco por séculos.'
     )
 ]
 
@@ -73,9 +80,9 @@ for codigo in lista_de_codigos:
     urllib.request.urlretrieve(doc_anime['url_banner'], 'anihubsub/siteweb/static/img/banners-animes/' + codigo[0] + '.png')
     urllib.request.urlretrieve(doc_anime['url_plano_de_fundo'], 'anihubsub/siteweb/static/img/planos-de-fundo/' + codigo[0] + '.png')
 
-    image = Image.open('anihubsub/siteweb/static/img/banners-animes/' + raiz.find('.//picture').text)
+    image = Image.open('anihubsub/siteweb/static/img/banners-animes/' + codigo[0] + '.png')
     image.thumbnail((96, 400))
-    image.save('anihubsub/siteweb/static/img/thumbs/' + raiz.find('.//picture').text)
+    image.save('anihubsub/siteweb/static/img/thumbs/' + codigo[0] + '.png')
 
     # #Pega Figura
     # doc_anime['url_thumb'] = 'https://cdn-eu.anidb.net/images/main/' + raiz.find('.//picture').text    
@@ -118,6 +125,7 @@ for codigo in lista_de_codigos:
                 except:
                     lista_de_nomes_de_ovas.append('#' + episodio.find("epno").text + ' - ' + titulo.text)
 
+    lista_de_nomes_de_episodios.sort(key=itemgetter(3))
     doc_anime['episodios'] = lista_de_nomes_de_episodios
 
     doc_anime['id_anidb'] = codigo[0]
