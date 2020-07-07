@@ -24,18 +24,30 @@ def define_premier(data_inicial, data_final):
     else:
         return "Outono " + str(ano)
 
-lista_de_codigos = [
-    # (
-    #     '14111',
-    #     'https://image.tmdb.org/t/p/original/td5dHTdzEDGmvyWEhlYMPHDTlBz.jpg',
-    #     'https://image.tmdb.org/t/p/original/rYGowgXDECVVCbyIw3LfY8szdDl.jpg',
-    #     'Considerado um gênio devido a ter as notas mais altas do país, Miyuki Shirogane lidera o prestigioso conselho estudantil da Academia Shuchiin como seu presidente, trabalhando ao lado do belo e rico vice-presidente Kaguya Shinomiya. Os dois são frequentemente considerados como o casal perfeito pelos alunos, apesar de não terem qualquer tipo de relacionamento romântico. No entanto, a verdade é que depois de passar tanto tempo juntos, os dois desenvolveram sentimentos um pelo outro; infelizmente, nenhum deles está disposto a confessar, pois isso seria um sinal de fraqueza. Com seu orgulho como estudantes de elite na linha, Miyuki e Kaguya embarcam em uma missão para fazer o que for necessário para obter uma confissão do outro. Através de suas travessuras diárias, a batalha do amor começa!'
-    # )
+lista_de_codigos = [    
     (
         '34',
         'https://image.tmdb.org/t/p/original/tjbcFqW9zQlmBUB0USpJhpqASOw.jpg',
         'https://image.tmdb.org/t/p/original/2vIjTPITEoHeetz1jU4UxyHL9tg.jpg',
         'A história gira em torno da estudante Tohru Honda, que começa a viver sozinha em uma tenda depois de perder sua mãe. Ela acaba morando com os colegas Yuki e Kyo Sohma, trabalhando como dona de casa. Ela logo descobre que a família foi ligada por uma maldição relacionada ao zodíaco por séculos.'
+    ),
+    (
+        '14111',
+        'https://image.tmdb.org/t/p/original/td5dHTdzEDGmvyWEhlYMPHDTlBz.jpg',
+        'https://image.tmdb.org/t/p/original/rYGowgXDECVVCbyIw3LfY8szdDl.jpg',
+        'Considerado um gênio devido a ter as notas mais altas do país, Miyuki Shirogane lidera o prestigioso conselho estudantil da Academia Shuchiin como seu presidente, trabalhando ao lado do belo e rico vice-presidente Kaguya Shinomiya. Os dois são frequentemente considerados como o casal perfeito pelos alunos, apesar de não terem qualquer tipo de relacionamento romântico. No entanto, a verdade é que depois de passar tanto tempo juntos, os dois desenvolveram sentimentos um pelo outro; infelizmente, nenhum deles está disposto a confessar, pois isso seria um sinal de fraqueza. Com seu orgulho como estudantes de elite na linha, Miyuki e Kaguya embarcam em uma missão para fazer o que for necessário para obter uma confissão do outro. Através de suas travessuras diárias, a batalha do amor começa!'
+    ),
+    (
+        '9903',
+        'https://image.tmdb.org/t/p/original/x15LnCbRgRlZFnq2kQdbW9tlheZ.jpg',
+        'https://image.tmdb.org/t/p/original/1OCwVMlKttkbXd9mWeqmhMOj0Ci.jpg',
+        'Ichijou Raku é um garoto aparentemente normal, que mantém uma promessa desde sua infância: guardar um colar-cadeado, dado por uma garota. Raku no entanto, é filho do chefe da Yakuza, e por isso nunca teve uma vida lá muito normal. Um dia Chitoge, uma aluna transferida aparece pulando o muro e caindo por cima de Raku, o que causa estranhamento entre os dois devido à perda do colar de Raku no choque entre eles. Após dias de busca e desavenças, ambos descobrem que o futuro lhes pregou uma peça: apesar de se detestarem, precisarão se fingir de namorados para evitar a guerra entre a Yakuza, da família de Raku, e a máfia, da família de Chitoge. Um romance fadado ao desastre e guerra entre facções inimigas.'
+    ),
+    (
+        '10859',
+        'https://image.tmdb.org/t/p/original/11wlRUHmAClOWPclwKiEVK8u0zj.jpg',
+        'https://image.tmdb.org/t/p/original/wREvAqVPttTfW1KP2Aifd7QNjCB.jpg',
+        'Ichijou Raku é um garoto aparentemente normal, que mantém uma promessa desde sua infância: guardar um colar-cadeado, dado por uma garota. Raku no entanto, é filho do chefe da Yakuza, e por isso nunca teve uma vida lá muito normal. Um dia Chitoge, uma aluna transferida aparece pulando o muro e caindo por cima de Raku, o que causa estranhamento entre os dois devido à perda do colar de Raku no choque entre eles. Após dias de busca e desavenças, ambos descobrem que o futuro lhes pregou uma peça: apesar de se detestarem, precisarão se fingir de namorados para evitar a guerra entre a Yakuza, da família de Raku, e a máfia, da família de Chitoge. Um romance fadado ao desastre e guerra entre facções inimigas.'
     )
 ]
 
@@ -52,7 +64,7 @@ for codigo in lista_de_codigos:
 
 # codigo = '11981'
 
-    server = couchdb.Server('http://admin:password@192.168.2.211:5984/')
+    server = couchdb.Server('http://admin:1234@192.168.2.180:5984/')
     db = server['ahs']
 
     raiz = ET.fromstring(requests.get("http://api.anidb.net:9001/httpapi?request=anime&client=fagnerpc&clientver=2&protover=1&aid="+codigo[0], verify=True).content)
@@ -67,6 +79,7 @@ for codigo in lista_de_codigos:
     for t in raiz.find('.//titles'):
         if t.attrib['type'] == 'main':
             nome_xml = doc_anime['titulo'] = t.text
+            nome_xml = doc_anime['titulo_pesquisa'] = t.text.lower()
 
     #Pega o Período de Exibição
     doc_anime['inicio_de_exibicao'] = raiz.find('.//startdate').text
@@ -133,7 +146,7 @@ for codigo in lista_de_codigos:
     doc_anime['disponibilizar'] = 0
     doc_anime['fansub'] = 'Legendas Otaku'
     doc_anime['sinopse'] = codigo[3]
-    doc_anime['url_legendas'] = 'static/legendas/' + re.sub('[^A-Za-z0-9]+', '_', doc_anime['titulo']).lower() + '.zip'
+    doc_anime['url_legendas'] = re.sub('[^A-Za-z0-9]+', '_', doc_anime['titulo']).lower() + '.zip'
     doc_anime['timestamp'] = datetime.timestamp(datetime.now())
 
     identificador = str(uuid.uuid5(uuid.NAMESPACE_DNS, doc_anime['titulo']))

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load ahs_tags %}
+
+{% block corpo %}
+{% include 'z-cabecalho.html' %}
+<section class="has-background-link	has-text-white">
+    <div class="container">
+        Melhor site de Legendas Otaku do Brasil
+    </div>
+</section>
+{% include 'z-busca-alfabetica.html' %}
+<section>
+    <div class="container">
+        <div class="columns multiline ahs-sugestoes">
+            {% comment %} {% for id, titulo, banner, legenda, inicio, fim, premier, links, fansub in resultado %} {% endcomment %}
+            {% for anime in resultado %}
+            <div class="column is-2">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by3">
+                            <img src={{ anime.url_banner }} alt="Placeholder image">
+                        </figure>
+                    </div> 
+                     <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-6">
+                                    <a href={% url 'detalhesAnimes' anime|ler_id %}>{{ anime.titulo }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a href="{% static "legendas/" %}{{ anime.legendas }}"
+                            class="card-footer-item has-background-link has-text-white">
+                            <span class="icon">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            Baixar Legendas
+                        </a>
+                    </footer>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'z-footer.html' %}
+
+{% endblock corpo %}

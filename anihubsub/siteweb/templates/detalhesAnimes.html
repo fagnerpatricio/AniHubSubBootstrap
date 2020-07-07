@@ -3,7 +3,7 @@
 
 <style>
   .detalhes-img {
-    background: url({{ resultado.10 }});
+    background: url({{ anime.value.planoDeFundo }});
     background-size: cover;
     background-position: 50% 20%;
   }
@@ -11,11 +11,11 @@
 
 {% block corpo %}
 <section class="hero is-medium is-info"
-  style="background: url({{ resultado.10 }}); background-size:cover; background-position: 50% 20%;">
+  style="background: url({{ anime.value.planoDeFundo }}); background-size:cover; background-position: 50% 20%;">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title is-1 has-text-white has-text-weight-bold">
-        {{ resultado.0 }}
+        {{ anime.value.titulo }}
       </h1>
     </div>
   </div>
@@ -24,13 +24,13 @@
       <div class="container">
         <ul>
           <li>
-            Premier: {{ resultado.5 }}
+            Premier: {{ anime.value.premier }}
           </li>
           <li>
-            Fansub: {{ resultado.7 }}
+            Fansub: {{ anime.value.fansub }}
           </li>
           <li>
-            Perido de Exibição: {{ resultado.3 }} até {{ resultado.4 }}
+            Perido de Exibição: {{ anime.value.inicio }} até {{ anime.value.fim }}
           </li>          
           <li class='has-background-success'>
             <a class='has-text-white has-text-weight-bold' href={% url 'index' %}>
@@ -53,11 +53,11 @@
         <div class="card">
           <div class="card-image">
             <figure class="image is-2by3">
-              <img src={{ resultado.1 }}>
+              <img src={{ anime.value.banner }}>
             </figure>
           </div>
           <footer class="card-footer">
-            <a href="{% static "legendas/" %}{{ resultado.2 }}" class="card-footer-item has-background-link has-text-white">
+            <a href={% static 'legendas/' %}{{ anime.value.legenda }} class="card-footer-item has-background-link has-text-white">
               <span class="icon">
                 <i class="fas fa-download"></i>
               </span>
@@ -70,7 +70,7 @@
         <div class="content">
           <p>Sinopse</p>
           <p class='has-text-justified'>
-            {{ resultado.9 }}
+            {{ anime.value.sinopse }}
           </p>
         </div>
         <table class="table is-fullwidth">
@@ -91,7 +91,7 @@
             </tr>
           </tfoot>
           <tbody>
-            {% for numero_ep, nome_ep, duracao_ep, data_exibicao_ep in resultado.8  %}
+            {% for numero_ep, nome_ep, duracao_ep, data_exibicao_ep in anime.value.episodios  %}
             <tr>
               <th>{{ numero_ep }}</th>
               <td>{{ nome_ep }}</td>

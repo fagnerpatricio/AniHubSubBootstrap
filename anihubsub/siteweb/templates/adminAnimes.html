@@ -1,143 +1,165 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block corpo %}
-<section class="main-content columns is-fullheight">
-    <aside class="column is-2 is-narrow-mobile is-fullheight section has-background-info">
-        <p class="menu-label is-hidden-touch">AniHubSub</p>
-        <ul class="menu-list">
-            <li>
-                <a href="#go-first" class="is-active">CIT</a>
-                <ul>
-                    <li><a href="#">Items</a></li>
-                    <li><a href="#">Items</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="is-active">Other</a>
-                <ul>
-                    <li><a href="#">other</a></li>
-                </ul>
-            </li>
-        </ul>
-    </aside>
-    <div class="column is-10 ">
-        <section class="section">
-            <div class="container">
-                <div class="box">
-                    <h1 class="title is-4 has-text-centered">Todas as Legendas</h1>
-                    <div class="columns is-vcentered pl-5">
-                        {% for letra in alfabeto  %}
-                        <div class="column">
-                            <a class="prefetch has-text-weight-bold" href='{{ letra }}'>{{ letra }}</a>
-                            {% comment %} <span class='has-text-weight-bold'>{{ letra }}</span> {% endcomment %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
+{% block css %}
+<style>
+    .container {
+        max-width: 1480px;
+    }
+</style>
+{% endblock css %}
 
-            </div>
+{% block corpo %}
+<section class="main-content columns is-fullheight py-0">
+    <aside class="column is-2 is-narrow-mobile is-fullheight section has-text-white">
+        <figure class="image">
+            <img src={% static 'img/logo.svg' %} alt="Placeholder image">
+        </figure>
+        <ul class="menu-list pt-5">
+            <li>
+                <a href="#go-first" class="is-active">Menu</a>
+                <ul>
+                    <li><a href="#">Animes</a></li>
+                    <li><a href={% url 'listaDeFansubs' %}>FanSubs</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#go-first" class="is-active">Pesquisa Alfabética</a>
+                <ul>
+                    <li>
+                        <div class="columns is-multiline is-gapless">
+                            {% for letra in alfabeto  %}
+                            <div class="column">
+                                <a class="prefetch has-text-weight-bold"
+                                    href={% url 'adminAnimes' letra %}>{{ letra }}</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </li>
+    </aside>
+    <div class="column is-10">
+        <section class='px-0 mx-0'>
+            <section class="section px-0 mx-0">
+                <div class="container">
+                    {% comment %} <div class="box">
+                        <h1 class="title is-4 has-text-centered">Todas as Legendas</h1>
+                        <div class="columns is-vcentered pl-5">
+                            {% for letra in alfabeto  %}
+                            <div class="column">
+                                <a class="prefetch has-text-weight-bold"
+                                    href={% url 'adminAnimes' letra %}>{{ letra }}</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+            </section>
         </section>
         <section>
             <div class="container">
-                <div class="columns multiline ahs-sugestoes">
-                    {% for titulo, banner, legenda, inicio, fim, premier, links, fansub in resultado %}
-                    <div class="column is-2">
+                <div class="columns ahs-sugestoes">
+                    {% for id, titulo, banner, legenda, inicio, fim, premier, links, fansub, disponivel, recomendado, existe_legenda in resultado %}
+                    <div class="column is-2 pr-0" style="background: url({{ banner }} ); background-size:cover;">
+                    </div>
+                    <div class="column is-2 pl-0 py-0">
                         <div class="card">
-                            <div class="card-image">
-                                <figure class="image is-2by3">
-                                    <img src={{ banner }} alt="Placeholder image">
-                                </figure>
-                            </div>
                             <div class="card-content">
-                                <div class="media">
-                                    <div class="media-content">
-                                        <p class="title is-6">{{ titulo }}</p>
-                                    </div>
+                                <div class="content">
+                                    <p id="titulo_anime" class="title is-5 has-text-centered">
+                                        <a href={% url 'detalhesAnimes' id %}><strong>{{ titulo }}</strong></a>
+                                    </p>
+                                    <form action={% url 'upload' request.path %} method="post"
+                                        enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="nome_legenda" value={{ legenda }}>
+                                        <p class='has-text-centered'>
+                                            {% if existe_legenda %}
+                                            <span class="tag is-primary is-medium" data-tooltip={{ legenda }}>Possui
+                                                Legenda</span>
+                                            {% else %}
+                                            <div class="field" data-tooltip={{ legenda }}>
+                                                <div id="file2-js-example"
+                                                    class="file is-small is-fullwidth is-boxed is-warning has-name">
+                                                    <label class="file-label">
+                                                        <input class="file-input" type="file" name="legenda">
+                                                        <span class="file-cta has-text-centered">
+                                                            <span class="file-icon">
+                                                                <i class="fas fa-file"></i>
+                                                            </span>
+                                                            <span class="file-label">
+                                                                Enviar Legenda
+                                                            </span>
+                                                        </span>
+                                                        <span class="file-name has-text-centered has-text-black">
+                                                            {{ legenda }}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button class="button is-link is-fullwidth">
+                                                <span class="icon is-small">
+                                                    <i class="fas fa-upload"></i>
+                                                </span>
+                                                <span>Enviar</span>
+                                            </button>
+                                            {% endif %}
+                                        </p>
+                                    </form>
+                                    <hr>
+                                    <form action={% url 'salvarAnimes' request.path %} method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value={{ id }}>
+                                        <label class="checkbox">
+                                            {% if recomendado == 1 %}
+                                            <input type="checkbox" name="recomendar_anime" value={{ id }} checked>
+                                            {% else %}
+                                            <input type="checkbox" name="recomendar_anime" value={{ id }}>
+                                            {% endif %}
+                                            Recomendar Anime
+                                        </label>
+                                        <label class="checkbox">
+                                            {% if disponivel == 1 %}
+                                            <input type="checkbox" name="disponibilizar_anime" value={{ id }} checked>
+                                            {% else %}
+                                            <input type="checkbox" name="disponibilizar_anime" value={{ id }}>
+                                            {% endif %}
+                                            Disponibilizar Anime
+                                        </label>
+                                        <p class='pt-2'>Escolha o Fansub</p>
+                                        <div class="field">
+                                            <div class="control has-icons-left">
+                                                <div class="select">
+                                                    <select name="fansub">
+                                                        <option value={{ fansub }} selected>{{ fansub }}</option>
+                                                        <option value="Legendas Otaku">Legendas Otaku</option>
+                                                        <option value="AniHubSub">AniHubSub</option>
+                                                    </select>
+                                                </div>
+                                                <div class="icon is-small is-left">
+                                                    <i class="fas fa-globe"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="card-footer-item">
+                                            <button type="submit" class="button is-link is-rounded">
+                                                <span class="icon is-small">
+                                                    <i class="fas fa-check"></i>
+                                                </span>
+                                                <span>Salvar Alterações</span>
+                                            </button>
+                                        </a>
+                                    </form>
                                 </div>
                             </div>
-                            <footer>
-                                <a href="{% static "legendas/" %}{{ legenda }}"
-                                    class="card-footer-item has-background-link has-text-white">
-                                    <span class="icon">
-                                        <i class="fas fa-download"></i>
-                                    </span>
-                                    Baixar Legendas
-                                </a>
-                                <a href="#" class="card-footer-item has-background-primary has-text-white">
-                                    <span class="icon">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    Enviar Legendas
-                                </a>
-                                <div class="select is-fullwidth">
-                                    <select name="country">
-                                        <option value="Argentina">Argentina</option>
-                                        <option value="Bolivia">Bolivia</option>
-                                        <option value="Brazil">Brazil</option>
-                                        <option value="Chile">Chile</option>
-                                        <option value="Colombia">Colombia</option>
-                                        <option value="Ecuador">Ecuador</option>
-                                        <option value="Guyana">Guyana</option>
-                                        <option value="Paraguay">Paraguay</option>
-                                        <option value="Peru">Peru</option>
-                                        <option value="Suriname">Suriname</option>
-                                        <option value="Uruguay">Uruguay</option>
-                                        <option value="Venezuela">Venezuela</option>
-                                    </select>
-                                </div>
-                            </footer>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                {% comment %} <div class="columns is-gapless ahs-sugestoes">
-                    <div class="column is-2">
-                        <figure class="image is-2by3">
-                            <img src="https://static.tvmaze.com/uploads/images/original_untouched/256/640071.jpg"
-                                alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="column is-4">
-                        <div class="card">
-                            <div class="card-content">
-                                <p class="title">
-                                    “There are two hard things in computer science: cache invalidation, naming things,
-                                    and off-by-one errors.”
-                                </p>
-                                <p class="subtitle">
-                                    Jeff Atwood
-                                </p>
-                            </div>
-                            <footer class="card-footer">
-                                <p class="card-footer-item">
-                                    <span>
-                                        View on <a
-                                            href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-                                    </span>
-                                </p>
-                                <p class="card-footer-item">
-                                    <span>
-                                        Share on <a href="#">Facebook</a>
-                                    </span>
-                                </p>
-                            </footer>
-                        </div>
-                    </div>
-                </div> {% endcomment %}
             </div>
         </section>
-        <footer class="footer">
-            <div class="content has-text-centered">
-                <p>
-                    <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is
-                    licensed
-                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                    is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-                </p>
-            </div>
-        </footer>
     </div>
 </section>
-
+{% include 'z-footer.html' %}
 {% endblock corpo %}

@@ -1,4 +1,6 @@
 {% load static %}
+{% load ahs_tags %}
+
 <!DOCTYPE html>
 <html>
 
@@ -8,17 +10,30 @@
     <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <!-- AniHubSub CSS-->
-    <link rel="stylesheet" href="{% static "css/anihubsub.css" %}">
-    <link rel="stylesheet" href="{% static "css/detalhesanimes.css" %}">
+    <link rel="stylesheet" href={% static 'css/anihubsub.css' %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-tooltip@3.0.2/dist/css/bulma-tooltip.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+    {% block css %}
+    {% endblock css %}
+  
+
 </head>
 
 <body>
     {% block corpo %}
     {% endblock corpo %}
-
     <script src="https://kit.fontawesome.com/23e2692f15.js" crossorigin="anonymous"></script>
+
+      <script>
+        const fileInput = document.querySelector('#file2-js-example input[type=file]');
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector('#file2-js-example .file-name');
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+    </script>
 </body>
 
 </html>

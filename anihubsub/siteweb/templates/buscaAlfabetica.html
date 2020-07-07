@@ -12,23 +12,27 @@
 <section>
     <div class="container">
         <div class="columns multiline ahs-sugestoes">
-            {% for titulo, banner, legenda, inicio, fim, premier, links, fansub in resultado %}
+            {% comment %} {% for id, titulo, banner, legenda, inicio, fim, premier, links, fansub in resultado %} {% endcomment %}
+            {% for anime in resultado %}
             <div class="column is-2">
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-2by3">
-                            <img src={{ banner }} alt="Placeholder image">
+                            <img src={{ anime.value.banner }} alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="card-content">
                         <div class="media">
                             <div class="media-content">
-                                <p class="title is-6">{{ titulo }}</p>
+                                <p class="title is-6">
+                                    <a href="{% url 'detalhesAnimes' anime.value.id %}">{{ anime.value.titulo }}</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a href="{% static "legendas/" %}{{ legenda }}" class="card-footer-item has-background-link has-text-white">
+                        <a href="{% static "legendas/" %}{{ anime.value.legenda }}"
+                            class="card-footer-item has-background-link has-text-white">
                             <span class="icon">
                                 <i class="fas fa-download"></i>
                             </span>
@@ -41,6 +45,7 @@
         </div>
     </div>
 </section>
+
 {% include 'z-footer.html' %}
 
 {% endblock corpo %}

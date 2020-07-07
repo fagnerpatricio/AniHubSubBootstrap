@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block corpo %}
 {% include 'z-cabecalho.html' %}
@@ -13,24 +14,26 @@
             <h1 class="title has-text-white has-text-weight-bold has-text-centered">
                 Sugestões do Editor Otaku
             </h1>
-            <div class="columns ahs-sugestoes">
-                {% for titulo, thumb, legendas in animes_recomendados %}
+            <div class="columns ahs-sugestoes">                
+                {% for anime in animes_recomendados %}
                 <div class="column is-3">
                     <div class="card">
                         <div class="card-image">
                             <figure class="image is-2by3 is-3">
-                                <img src={{ thumb }} alt="Placeholder image">
+                                <img src={{ anime.value.banner }} alt="Placeholder image">
                             </figure>
                         </div>
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4">{{ titulo }}</p>
+                                    <p class="title is-4">
+                                        <a href="{% url 'detalhesAnimes' anime.value.id %}">{{ anime.value.titulo }}</a>
+                                    </p> 
                                 </div>
                             </div>
                         </div>
                         <footer class="card-footer">
-                            <a href={{ legendas }} class="card-footer-item has-background-link has-text-white">
+                            <a href={% static 'legendas/' %}{{ anime.value.legenda }} class="card-footer-item has-background-link has-text-white">
                                 <span class="icon">
                                     <i class="fas fa-download"></i>
                                 </span>
@@ -47,7 +50,7 @@
 
 {% include 'z-busca-alfabetica.html' %}
 
-<section class="hero">
+{% comment %} <section class="hero">
     <div class="hero-body">
         <div class="container is-fullhd">
             <h1 class="title has-text-centered">
@@ -80,7 +83,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> {% endcomment %}
 <!-- Sessão Novas Legendas -->
 <section>
     <div class="container">
@@ -88,13 +91,13 @@
             Novas Legendas
         </h1>
         <div class="columns" style=>
-            <div class="column is-9">
-                {% for titulo, thumb, legenda, inicio, fim, premier, links, fansub in ultimos_lancamentos  %}
+            <div class="column is-9">                
+                {% for anime in ultimos_lancamentos  %}
                 <div class="box">
                     <article class="media">
                         <div class="media-left">
                             <figure class="image is-96x96">
-                                <img src="static/img/thumbs/{{ thumb }}" alt="Image">
+                                <img src="static/img/thumbs/{{ anime.value.thumb }}.png" alt="Image">
                             </figure>
                         </div>
                         <div class="media-content">
@@ -103,7 +106,7 @@
                                     <span class="icon has-text-success">
                                         <i class="fas fa-lg fa-clipboard-check"></i>
                                     </span>
-                                    <a href={% url 'detalhesAnimes' titulo %}><strong>{{ titulo }}</strong></a>
+                                    <a href={% url 'detalhesAnimes' anime.value.id %}><strong>{{ anime.value.titulo }}</strong></a>
                                 </p>
                             </div>
                             <ul class="events is-marginless is-paddingless">
@@ -112,20 +115,20 @@
                                         <i class="fas fa-tv"></i>
                                     </span>
                                     Perído de Exibição:
-                                    <strong class="tag is-white">{{ inicio }} até {{ fim }}</strong>
+                                    <strong class="tag is-white">{{ anime.value.inicio }} até {{ anime.value.fim }}</strong>
                                 </li>
                                 <li>
                                     <span class="icon">
                                         <i class="fas fa-rocket"></i>
                                     </span>
-                                    Premiered: <span class="tag price-tag is-price-free">{{ premier }}</span>
+                                    Premiered: <span class="tag price-tag is-price-free">{{ anime.value.premier }}</span>
                                 </li>
                                 <li>
                                     <span class="icon">
                                         <i class="fas fa-external-link-alt"></i>
                                     </span>
                                     Links Informativos:
-                                    {% for key, value in links.items  %}
+                                    {% for key, value in anime.value.links.items  %}
                                     {% if key == 'link_mal' %}
                                     {% for link in value %}
                                     <a class="prefetch" href={{ link }}>MyAnimeList</a>,
@@ -147,12 +150,12 @@
                                     <span class="icon">
                                         <i class="fas fa-check-double"></i>
                                     </span>
-                                    Disponibilizado e Revisado por <span class="tag is-success">{{ fansub }}</span>
+                                    Disponibilizado e Revisado por <span class="tag is-success">{{ anime.value.fansub }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="media-right">
-                            <a href={{ legenda }} class="card-footer-item">
+                            <a href={% static 'legendas/' %}{{ anime.value.legenda }} class="card-footer-item">
                                 <span class="icon">
                                     <i class="fas fa-download"></i>
                                 </span>
@@ -190,7 +193,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> 
 <!-- Footer -->
 {% include 'z-footer.html' %}
 {% endblock corpo %}
